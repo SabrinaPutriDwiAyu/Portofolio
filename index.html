@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabrina Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'rose-gold': '#E8B4B8',
+                        'dusty-rose': '#D4A5A5',
+                        'soft-pink': '#F5E6E8',
+                        'deep-purple': '#6B46C1',
+                        'lavender': '#E0E7FF'
+                    },
+                    fontFamily: {
+                        'display': ['Georgia', 'serif'],
+                        'sans': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .bounce-in {
+            animation: bounceIn 0.6s ease-out;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: linear-gradient(to right, #E8B4B8, #6B46C1);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 80%;
+        }
+        
+        .active-nav::after {
+            width: 80%;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gradient-to-br from-soft-pink via-white to-lavender min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect border-b border-white/20" x-data="{ isOpen: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <h1 class="text-2xl font-bold text-deep-purple">Sabrina Portofolio</h1>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="nav-link text-gray-700 hover:text-deep-purple font-medium transition-colors duration-300 active-nav">Home</a>
+                        <a href="#about" class="nav-link text-gray-700 hover:text-deep-purple font-medium transition-colors duration-300">About</a>
+                        <a href="#portfolio" class="nav-link text-gray-700 hover:text-deep-purple font-medium transition-colors duration-300">Portfolio</a>
+                        <a href="#contact" class="nav-link text-gray-700 hover:text-deep-purple font-medium transition-colors duration-300">Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button @click="isOpen = !isOpen" class="text-gray-700 hover:text-deep-purple focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div x-show="isOpen" x-transition class="md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 bg-white/80 backdrop-blur rounded-lg mt-2 shadow-lg">
+                    <a href="#home" class="block text-gray-700 hover:text-deep-purple px-3 py-2 font-medium rounded-md hover:bg-soft-pink">Home</a>
+                    <a href="#about" class="block text-gray-700 hover:text-deep-purple px-3 py-2 font-medium rounded-md hover:bg-soft-pink">About</a>
+                    <a href="#portfolio" class="block text-gray-700 hover:text-deep-purple px-3 py-2 font-medium rounded-md hover:bg-soft-pink">Portfolio</a>
+                    <a href="#contact" class="block text-gray-700 hover:text-deep-purple px-3 py-2 font-medium rounded-md hover:bg-soft-pink">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-16 min-h-screen flex items-center justify-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Text Content -->
+                <div class="slide-in-left">
+                    <h2 class="mb-6 text-5xl font-display font-bold text-gray-800 lg:text-7xl">
+                        Halo, Aku Sabrina
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        Creative Designer yang passionate dalam menciptakan pengalaman visual yang menakjubkan dan bermakna melalui desain grafis dan ilustrasi.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div x-data="{ showCV: false }">
+                            <button @click="showCV = true" class="bg-gradient-to-r from-rose-gold to-dusty-rose text-white px-8 py-3 rounded-full font-semibold hover-lift transition-all duration-300">
+                                Lihat CV
+                            </button>
+                            
+                            <!-- CV Modal -->
+                            <div x-show="showCV" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center p-4" @click.self="showCV = false">
+                                <div x-show="showCV" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+                                    <!-- Modal Header -->
+                                    <div class="flex justify-between items-center p-6 border-b border-gray-200">
+                                        <h2 class="text-2xl font-bold text-gray-800">Curriculum Vitae</h2>
+                                        <button @click="showCV = false" class="text-gray-400 hover:text-gray-600 transition-colors">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- CV Content -->
+                                    <div class="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+                                        <div class="bg-gradient-to-br from-soft-pink to-white p-8 rounded-xl">
+                                            <!-- Header -->
+                                            <div class="text-center mb-8">
+                                                <div class="w-32 h-32 rounded-full bg-gradient-to-br from-rose-gold to-dusty-rose mx-auto mb-4 flex items-center justify-center">
+                                                    <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                                    </svg>
+                                                </div>
+                                                <h1 class="text-3xl font-bold text-gray-800 mb-2">Sabrina</h1>
+                                                <p class="text-lg text-gray-600">Creative Designer & Illustrator</p>
+                                                <div class="flex justify-center space-x-4 mt-4 text-sm text-gray-500">
+                                                    <span>📧 sabrina@email.com</span>
+                                                    <span>📱 +62 812 3456 7890</span>
+                                                    <span>📍 Jakarta, Indonesia</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Experience -->
+                                            <div class="mb-8">
+                                                <h2 class="text-xl font-bold text-deep-purple mb-4 border-b-2 border-rose-gold pb-2">Experience</h2>
+                                                <div class="space-y-4">
+                                                    <div>
+                                                        <h3 class="font-semibold text-gray-800">Senior Graphic Designer</h3>
+                                                        <p class="text-gray-600">Creative Agency • 2022 - Present</p>
+                                                        <ul class="text-sm text-gray-600 mt-2 list-disc list-inside">
+                                                            <li>Memimpin desain untuk berbagai brand ternama</li>
+                                                            <li>Membuat identitas visual yang kuat dan konsisten</li>
+                                                            <li>Meningkatkan engagement brand hingga 45% melalui desain yang efektif</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <h3 class="font-semibold text-gray-800">Illustrator</h3>
+                                                        <p class="text-gray-600">Freelance • 2020 - 2022</p>
+                                                        <ul class="text-sm text-gray-600 mt-2 list-disc list-inside">
+                                                            <li>Membuat ilustrasi untuk buku anak-anak</li>
+                                                            <li>Desain karakter untuk berbagai proyek kreatif</li>
+                                                            <li>Kolaborasi dengan penulis dan creative director</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Education -->
+                                            <div class="mb-8">
+                                                <h2 class="text-xl font-bold text-deep-purple mb-4 border-b-2 border-rose-gold pb-2">Education</h2>
+                                                <div class="space-y-4">
+                                                    <div>
+                                                        <h3 class="font-semibold text-gray-800">Bachelor of Design</h3>
+                                                        <p class="text-gray-600">Desain Komunikasi Visual • Institut Kesenian Jakarta • 2016 - 2020</p>
+                                                        <p class="text-sm text-gray-600 mt-1">IPK: 3.8/4.0 • Cum Laude</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Skills -->
+                                            <div class="mb-8">
+                                                <h2 class="text-xl font-bold text-deep-purple mb-4 border-b-2 border-rose-gold pb-2">Skills</h2>
+                                                <div class="grid md:grid-cols-2 gap-4">
+                                                    <div>
+                                                        <h4 class="font-semibold text-gray-800 mb-2">Design Tools</h4>
+                                                        <div class="flex flex-wrap gap-2">
+                                                            <span class="bg-rose-gold/20 text-rose-gold px-3 py-1 rounded-full text-sm">Adobe Illustrator</span>
+                                                            <span class="bg-rose-gold/20 text-rose-gold px-3 py-1 rounded-full text-sm">Photoshop</span>
+                                                            <span class="bg-rose-gold/20 text-rose-gold px-3 py-1 rounded-full text-sm">InDesign</span>
+                                                            <span class="bg-rose-gold/20 text-rose-gold px-3 py-1 rounded-full text-sm">Procreate</span>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <h4 class="font-semibold text-gray-800 mb-2">Keahlian</h4>
+                                                        <div class="flex flex-wrap gap-2">
+                                                            <span class="bg-deep-purple/20 text-deep-purple px-3 py-1 rounded-full text-sm">Ilustrasi Digital</span>
+                                                            <span class="bg-deep-purple/20 text-deep-purple px-3 py-1 rounded-full text-sm">Branding</span>
+                                                            <span class="bg-deep-purple/20 text-deep-purple px-3 py-1 rounded-full text-sm">Typography</span>
+                                                            <span class="bg-deep-purple/20 text-deep-purple px-3 py-1 rounded-full text-sm">Layout Design</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Projects -->
+                                            <div class="mb-8">
+                                                <h2 class="text-xl font-bold text-deep-purple mb-4 border-b-2 border-rose-gold pb-2">Featured Projects</h2>
+                                                <div class="space-y-4">
+                                                    <div class="bg-white/60 p-4 rounded-lg">
+                                                        <h3 class="font-semibold text-gray-800">Brand Identity "Natura"</h3>
+                                                        <p class="text-sm text-gray-600 mb-2">Desain identitas merek lengkap untuk produk skincare alami</p>
+                                                        <div class="flex flex-wrap gap-2">
+                                                            <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs">Logo Design</span>
+                                                            <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs">Packaging</span>
+                                                            <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs">Brand Guidelines</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bg-white/60 p-4 rounded-lg">
+                                                        <h3 class="font-semibold text-gray-800">Buku Anak "Petualangan Milo"</h3>
+                                                        <p class="text-sm text-gray-600 mb-2">Ilustrasi dan layout untuk buku cerita anak</p>
+                                                        <div class="flex flex-wrap gap-2">
+                                                            <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs">Illustration</span>
+                                                            <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs">Book Design</span>
+                                                            <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs">Character Design</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Languages -->
+                                            <div class="mb-8">
+                                                <h2 class="text-xl font-bold text-deep-purple mb-4 border-b-2 border-rose-gold pb-2">Languages</h2>
+                                                <div class="grid md:grid-cols-3 gap-4">
+                                                    <div class="text-center">
+                                                        <div class="bg-gradient-to-br from-rose-gold to-dusty-rose w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2">
+                                                            <span class="text-white font-bold">ID</span>
+                                                        </div>
+                                                        <p class="font-semibold text-gray-800">Bahasa Indonesia</p>
+                                                        <p class="text-sm text-gray-600">Native</p>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <div class="bg-gradient-to-br from-deep-purple to-lavender w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2">
+                                                            <span class="text-white font-bold">EN</span>
+                                                        </div>
+                                                        <p class="font-semibold text-gray-800">English</p>
+                                                        <p class="text-sm text-gray-600">Fluent</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Modal Footer -->
+                                    <div class="flex justify-between items-center p-6 border-t border-gray-200 bg-gray-50">
+                                        <button @click="showCV = false" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors">
+                                            Tutup
+                                        </button>
+                                        <div class="space-x-3">
+                                            <button class="px-6 py-2 bg-gradient-to-r from-rose-gold to-dusty-rose text-white rounded-lg hover:shadow-lg transition-all duration-300">
+                                                Download PDF
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#portfolio" class="border-2 border-deep-purple text-deep-purple px-8 py-3 rounded-full font-semibold hover:bg-deep-purple hover:text-white transition-all duration-300 text-center">
+                            Portfolio
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Photo -->
+                <div class="flex justify-center lg:justify-end">
+                    <div class="relative bounce-in">
+                        <div class="w-80 h-80 rounded-full bg-gradient-to-br from-rose-gold via-dusty-rose to-deep-purple p-1 floating">
+                            <div class="w-full h-full rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                                <!-- Placeholder for photo -->
+                                <div class="w-full h-full bg-gradient-to-br from-soft-pink to-rose-gold flex items-center justify-center text-white">
+                                    <img src="foto-saya.jpg" alt="foto saya">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Decorative elements -->
+                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-rose-gold to-deep-purple rounded-full opacity-20 floating" style="animation-delay: -1s;"></div>
+                        <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-dusty-rose to-rose-gold rounded-full opacity-30 floating" style="animation-delay: -2s;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h3 class="text-4xl font-display font-bold text-gray-800 mb-4">Tentang Saya</h3>
+                <div class="w-20 h-1 bg-gradient-to-r from-rose-gold to-deep-purple mx-auto"></div>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="hover-lift bg-white/70 backdrop-blur p-8 rounded-2xl shadow-lg">
+                    <div class="w-16 h-16 bg-gradient-to-br from-rose-gold to-dusty-rose rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold text-gray-800 mb-4">Desain Grafis</h4>
+                    <p class="text-gray-600">Menciptakan desain yang tidak hanya indah, tapi juga komunikatif dan sesuai dengan kebutuhan brand.</p>
+                </div>
+                
+                <div class="hover-lift bg-white/70 backdrop-blur p-8 rounded-2xl shadow-lg" style="animation-delay: 0.2s;">
+                    <div class="w-16 h-16 bg-gradient-to-br from-dusty-rose to-deep-purple rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold text-gray-800 mb-4">Ilustrasi</h4>
+                    <p class="text-gray-600">Mengembangkan karakter dan visual storytelling melalui ilustrasi yang penuh imajinasi.</p>
+                </div>
+                
+                <div class="hover-lift bg-white/70 backdrop-blur p-8 rounded-2xl shadow-lg" style="animation-delay: 0.4s;">
+                    <div class="w-16 h-16 bg-gradient-to-br from-deep-purple to-rose-gold rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14v6m-3-3h6M6 10h2a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6a2 2 0 012-2zm10-4a2 2 0 11-4 0 2 2 0 014 0zM4 6a2 2 0 100 4h16a2 2 0 100-4H4z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold text-gray-800 mb-4">Branding</h4>
+                    <p class="text-gray-600">Membangun identitas visual yang kuat dan konsisten untuk membedakan brand di pasar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h3 class="text-4xl font-display font-bold text-gray-800 mb-4">Portfolio</h3>
+                <div class="w-20 h-1 bg-gradient-to-r from-rose-gold to-deep-purple mx-auto mb-8"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Berikut adalah beberapa project yang telah saya kerjakan dengan penuh passion dan dedikasi.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio items -->
+                <div class="hover-lift bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-rose-gold to-dusty-rose flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white opacity-80" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M21 7h-1V6a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v1H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h1v9a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-9h1a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zm-2 11H5v-9h14v9zm-2-11H7V6h10v1zm2 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold text-gray-800 mb-2">Packaging Design</h4>
+                        <p class="text-gray-600 mb-4">Desain kemasan produk makanan organik dengan pendekatan sustainable.</p>
+                        <a href="#" class="text-deep-purple font-semibold hover:underline">Lihat Detail →</a>
+                    </div>
+                </div>
+                
+                <div class="hover-lift bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-deep-purple to-lavender flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white opacity-80" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold text-gray-800 mb-2">Logo & Brand Identity</h4>
+                        <p class="text-gray-600 mb-4">Pembuatan logo dan identitas visual untuk startup teknologi.</p>
+                        <a href="#" class="text-deep-purple font-semibold hover:underline">Lihat Detail →</a>
+                    </div>
+                </div>
+                
+                <div class="hover-lift bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-dusty-rose to-soft-pink flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white opacity-80" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z M20 2H8C6.9 2 6 2.9 6 4v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold text-gray-800 mb-2">Buku Ilustrasi</h4>
+                        <p class="text-gray-600 mb-4">Ilustrasi dan layout untuk buku cerita anak "Petualangan di Hutan".</p>
+                        <a href="#" class="text-deep-purple font-semibold hover:underline">Lihat Detail →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h3 class="text-4xl font-display font-bold text-gray-800 mb-4">Mari Berkolaborasi</h3>
+                <div class="w-20 h-1 bg-gradient-to-r from-rose-gold to-deep-purple mx-auto mb-8"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Punya project menarik? Mari diskusikan bagaimana kita bisa bekerja sama!</p>
+            </div>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white/70 backdrop-blur rounded-2xl shadow-lg p-8">
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <input type="text" placeholder="Nama Anda" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-deep-purple focus:outline-none transition-colors">
+                            </div>
+                            <div>
+                                <input type="email" placeholder="Email Anda" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-deep-purple focus:outline-none transition-colors">
+                            </div>
+                        </div>
+                        <div>
+                            <input type="text" placeholder="Subject" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-deep-purple focus:outline-none transition-colors">
+                        </div>
+                        <div>
+                            <textarea rows="5" placeholder="Pesan Anda" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-deep-purple focus:outline-none transition-colors resize-none"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="bg-gradient-to-r from-rose-gold to-deep-purple text-white px-8 py-3 rounded-full font-semibold hover-lift transition-all duration-300">
+                                Kirim Pesan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center text-gray-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="hover:text-deep-purple transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                    </svg>
+                </a>
+                <a href="#" class="hover:text-deep-purple transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="#" class="hover:text-deep-purple transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.333 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.758-1.378l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z"/>
+                    </svg>
+                </a>
+            </div>
+            <p>&copy; 2025 Sabrina</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Update active nav link
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active-nav');
+                    });
+                    this.classList.add('active-nav');
+                    
+                    // Close mobile menu if open
+                    if (document.querySelector('[x-data]').__x.$data.isOpen) {
+                        document.querySelector('[x-data]').__x.$data.isOpen = false;
+                    }
+                }
+            });
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active-nav');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
